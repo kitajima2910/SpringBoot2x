@@ -16,9 +16,9 @@ import java.io.Serializable;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "TestTable")
-@TableName("TestTable")
-@ApiModel(value = "Test Table")
+@Table(name = "ABC")
+@TableName("ABC")
+@ApiModel(value = "ABC")
 public class TestTable implements Serializable {
 
     private static final long serialVersionUID = 1L;
