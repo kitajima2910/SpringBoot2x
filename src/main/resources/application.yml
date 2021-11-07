@@ -4,3 +4,7 @@ spring:
     url: jdbc:sqlserver://localhost;databaseName=SpringBoot2x
     username: sa
     password: 2105
+
+# Settings Server
+server:
+  port: 8888

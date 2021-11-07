@@ -1,4 +1,4 @@
-package com.hoaipx.learn2021.utils;
+package com.hoaipx.learn2021.common.utils;
 
 import com.hoaipx.learn2021.pxh.Result;
 
