@@ -86,7 +86,7 @@ public interface BaseService<E, ID extends Serializable> {
      * @param entities entities
      */
     public default void delete(Iterable<E> entities) {
-        getRepository().deleteInBatch(entities);
+        getRepository().deleteAllInBatch(entities);
     }
 
     /**

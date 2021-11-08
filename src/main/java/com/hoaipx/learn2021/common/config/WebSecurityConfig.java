@@ -1,4 +1,4 @@
-package com.hoaipx.learn2021.config;
+package com.hoaipx.learn2021.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

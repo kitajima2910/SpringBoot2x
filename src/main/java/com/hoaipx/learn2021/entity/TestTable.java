@@ -1,9 +1,9 @@
 package com.hoaipx.learn2021.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.hoaipx.learn2021.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -11,7 +11,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Getter
 @Setter
@@ -22,17 +21,15 @@ import java.io.Serializable;
 @Table(name = "ABC")
 @TableName("ABC")
 @ApiModel(value = "ABC")
-public class TestTable implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class TestTable extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     @ApiModelProperty(value = "ID")
     private Integer id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     @ApiModelProperty(value = "Name")
     private String name;
 
