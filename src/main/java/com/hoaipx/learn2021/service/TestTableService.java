@@ -7,8 +7,14 @@ public interface TestTableService extends BaseService<TestTable, Integer> {
 
     /**
      * Save data
-     * @param testTable
+     * @param testTable testTable
      */
     void saveData(TestTable testTable);
+
+    /**
+     * Update date
+     * @param testTable testTable
+     */
+    void updateDate(TestTable testTable);
 
 }

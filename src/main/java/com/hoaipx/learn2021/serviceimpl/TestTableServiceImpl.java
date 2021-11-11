@@ -32,4 +32,16 @@ public class TestTableServiceImpl implements TestTableService {
         testTableDAO.saveAndFlush(testTable);
     }
 
+    @Override
+    public void updateDate(TestTable testTable) {
+        if(testTable.getId() == null || !testTableDAO.existsById(testTable.getId())) {
+            throw new PXHException("TestTable ID not exist.");
+        }
+
+        TestTable testTableOld = testTableDAO.findById(testTable.getId()).get();
+        testTableOld.setName(testTable.getName());
+
+        testTableDAO.saveAndFlush(testTableOld);
+    }
+
 }

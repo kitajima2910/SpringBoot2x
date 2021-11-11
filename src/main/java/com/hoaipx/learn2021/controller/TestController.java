@@ -37,4 +37,19 @@ public class TestController {
         return ResultUtil.success("Successfully.");
     }
 
+    // GET, POST, PUT, DELETE
+    // PATCH
+    @PutMapping("/updateData")
+    @ApiOperation(value = "Update Data")
+    public Result<Object> updateData(@RequestBody TestTableRequest testTableRequest) {
+
+        // Model -> Entity
+        TestTable testTable = new TestTable();
+        testTable.setId(testTableRequest.getId())
+                .setName(testTableRequest.getName());
+        testTableService.updateDate(testTable);
+
+        return ResultUtil.success("Successfully.");
+    }
+
 }

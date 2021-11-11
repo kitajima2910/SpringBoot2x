@@ -1,7 +1,7 @@
 # Connection SQL Server
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost;databaseName=SpringBoot2x
+    url: jdbc:sqlserver://localhost;databaseName=SpringBoot2x;sslProtocol=TLSv1
     username: sa
     password: 2105
 
