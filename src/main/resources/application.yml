@@ -1,10 +1,29 @@
 # Connection SQL Server
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost;databaseName=SpringBoot2x;sslProtocol=TLSv1
+    url: jdbc:sqlserver://localhost;databaseName=SpringBoot2x
     username: sa
     password: 2105
 
 # Settings Server
 server:
-  port: 8888
+  ssl: # Ref: https://mkyong.com/spring-boot/spring-boot-ssl-https-examples/
+    enabled: true
+    key-store-password: 123456
+    key-store: classpath:29101995.p12
+#    key-store: src/main/resources/29101995.p12
+    key-store-type: PKCS12
+  port: 8888 #default secured port (Spring will open it automatically)
+  http:
+    port: 8889 #additional HTTP port (will open it in UndertowConfig)
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 1000
+      min-spare: 30
+    # Maximum throughput is not limited
+    max-swallow-size: -1
+  # Graceful shutdown After closing the container, wait for 30 seconds by default to continue executing unprocessed tasks to avoid data inconsistency
+  shutdown: graceful

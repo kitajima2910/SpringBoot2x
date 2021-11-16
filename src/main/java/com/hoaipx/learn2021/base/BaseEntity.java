@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hoaipx.learn2021.common.Constant;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -56,5 +57,9 @@ public abstract class BaseEntity implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @Column(name = "update_date")
     private Date updateDate;
+
+    @ApiModelProperty(value = "Delete flag default 0")
+    @Column(name = "flag_del")
+    private Integer flagDel = Constant.STATUS_NORMAL;
 
 }
