@@ -5,6 +5,7 @@ import com.hoaipx.learn2021.entity.TestTable;
 import org.aspectj.weaver.ast.Test;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public interface TestTableService extends BaseService<TestTable, Integer> {
 
@@ -44,4 +45,9 @@ public interface TestTableService extends BaseService<TestTable, Integer> {
      */
     void createAndModifiedBatch(List<TestTable> testTables);
 
+    /**
+     * Get TestTable
+     * @param id id
+     */
+    CompletableFuture<TestTable> getTestTable(int id) throws InterruptedException;
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api/test")
@@ -125,6 +127,13 @@ public class TestController {
         testTableService.createAndModifiedBatch(testTables);
 
         return ResultUtil.success("Successfully.");
+    }
+
+    @GetMapping("/getTestTable/{id}")
+    @ApiOperation(value = "Get TestTable")
+    public Result<Object> getTestTable(@PathVariable int id) throws InterruptedException, ExecutionException {
+        CompletableFuture<TestTable> testTable = testTableService.getTestTable(id);
+        return ResultUtil.data(testTable.get());
     }
 
 }

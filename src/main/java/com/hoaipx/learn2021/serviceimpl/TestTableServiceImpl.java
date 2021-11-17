@@ -6,10 +6,12 @@ import com.hoaipx.learn2021.dao.TestTableDAO;
 import com.hoaipx.learn2021.entity.TestTable;
 import com.hoaipx.learn2021.service.TestTableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Transactional(rollbackFor = { RuntimeException.class, Exception.class, PXHException.class })
@@ -27,6 +29,7 @@ public class TestTableServiceImpl implements TestTableService {
      * Save data
      * @param testTable testTable
      */
+    @Async("asyncExecutor")
     public void saveData(TestTable testTable) {
         if(testTable.getId() != null && testTableDAO.existsById(testTable.getId())) {
             throw new PXHException("TestTable ID is duplicate.");
@@ -35,6 +38,7 @@ public class TestTableServiceImpl implements TestTableService {
     }
 
     @Override
+    @Async("asyncExecutor")
     public void updateDate(TestTable testTable) {
         if(testTable.getId() == null || !testTableDAO.existsById(testTable.getId())) {
             throw new PXHException("TestTable ID not exist.");
@@ -47,6 +51,7 @@ public class TestTableServiceImpl implements TestTableService {
     }
 
     @Override
+    @Async("asyncExecutor")
     public void deleteData(int id) {
         if(!testTableDAO.existsById(id)) {
             throw new PXHException("TestTable ID not exist.");
@@ -59,6 +64,7 @@ public class TestTableServiceImpl implements TestTableService {
     }
 
     @Override
+    @Async("asyncExecutor")
     public void createBatch(List<TestTable> testTables) {
 
         if(testTables.isEmpty()) {
@@ -71,6 +77,7 @@ public class TestTableServiceImpl implements TestTableService {
     }
 
     @Override
+    @Async("asyncExecutor")
     public void modifiedBatch(List<TestTable> testTables) {
 
         if(testTables.isEmpty()) {
@@ -89,6 +96,7 @@ public class TestTableServiceImpl implements TestTableService {
     }
 
     @Override
+    @Async("asyncExecutor")
     public void createAndModifiedBatch(List<TestTable> testTables) {
 
         if(testTables.isEmpty()) {
@@ -111,6 +119,19 @@ public class TestTableServiceImpl implements TestTableService {
             testTableOld.setName(testTable.getName());
             testTableDAO.saveAndFlush(testTableOld);
         }
+
+    }
+
+    @Override
+    @Async("asyncExecutor")
+    public CompletableFuture<TestTable> getTestTable(int id) {
+
+        if(!testTableDAO.existsById(id)) {
+            throw new PXHException("TestTable ID not exist.");
+        }
+
+        TestTable testTable = testTableDAO.findById(id).get();
+        return CompletableFuture.completedFuture(testTable);
 
     }
 
