@@ -1,6 +1,8 @@
 package com.hoaipx.learn2021.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hoaipx.learn2021.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,5 +34,13 @@ public class TestTable extends BaseEntity {
     @Column(name = "name")
     @ApiModelProperty(value = "Name")
     private String name;
+
+    /**
+     * Use for search
+     */
+    @JsonIgnore
+    @Transient
+    @TableField(exist = false)
+    private String keyword;
 
 }

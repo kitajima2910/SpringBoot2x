@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hoaipx.learn2021.dao.mapper.TestTableMapper">
+
+    <select id="getAllByCondition" resultType="com.hoaipx.learn2021.entity.TestTable">
+        SELECT *
+        FROM ABC
+        WHERE id IS NOT NULL
+        <if test="@com.hoaipx.learn2021.common.utils.MybatisUtil@isNotEmpty(testTable.keyword)">
+            AND (name LIKE CONCAT('%',#{testTable.keyword},'%'))
+        </if>
+        <if test="@com.hoaipx.learn2021.common.utils.MybatisUtil@isNotEmpty(testTable.flagDel)">
+            AND flag_del = #{testTable.flagDel}
+        </if>
+        <if test="@com.hoaipx.learn2021.common.utils.MybatisUtil@isNotEmpty(pageHelper.sortField, pageHelper.sortBy)">
+            ORDER BY ${pageHelper.sortField} ${pageHelper.sortBy}
+        </if>
+    </select>
+
+</mapper>

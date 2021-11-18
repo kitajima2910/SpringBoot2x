@@ -2,10 +2,15 @@ package com.hoaipx.learn2021.serviceimpl;
 
 import com.hoaipx.learn2021.base.BaseDAO;
 import com.hoaipx.learn2021.common.exception.PXHException;
+import com.hoaipx.learn2021.common.utils.PageHelper;
 import com.hoaipx.learn2021.dao.TestTableDAO;
+import com.hoaipx.learn2021.dao.mapper.TestTableMapper;
 import com.hoaipx.learn2021.entity.TestTable;
+import com.hoaipx.learn2021.pxh.PageUtil;
 import com.hoaipx.learn2021.service.TestTableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +24,9 @@ public class TestTableServiceImpl implements TestTableService {
 
     @Autowired
     private TestTableDAO testTableDAO;
+
+    @Autowired
+    private TestTableMapper testTableMapper;
 
     @Override
     public BaseDAO<TestTable, Integer> getRepository() {
@@ -132,6 +140,38 @@ public class TestTableServiceImpl implements TestTableService {
 
         TestTable testTable = testTableDAO.findById(id).get();
         return CompletableFuture.completedFuture(testTable);
+
+    }
+
+    @Override
+    @Async("asyncExecutor")
+    public CompletableFuture<Page<TestTable>> getAllByCondition(TestTable testTable, PageHelper pageHelper) {
+
+        List<TestTable> testTables = testTableMapper.getAllByCondition(testTable, pageHelper);
+        Page<TestTable> testTablePage = new PageImpl<>(PageUtil.listToPage(pageHelper, testTables), PageUtil.initPage(pageHelper), pageHelper.getPageSize());
+
+        return CompletableFuture.completedFuture(testTablePage);
+    }
+
+    @Override
+    @Async("asyncExecutor")
+    public void deleteBatch(Integer[] ids) {
+
+        if(ids.length < 1) {
+            throw new PXHException("TestTables contains no elements.");
+        }
+
+        for(Integer id : ids) {
+            if(id == null || !testTableDAO.existsById(id)) {
+                throw new PXHException("TestTable ID not exist.");
+            }
+        }
+
+        for(Integer id : ids) {
+            TestTable testTable = testTableDAO.findById(id).get();
+            testTable.setFlagDel(1);
+            testTableDAO.saveAndFlush(testTable);
+        }
 
     }
 

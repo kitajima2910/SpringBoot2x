@@ -1,5 +1,6 @@
 package com.hoaipx.learn2021.controller;
 
+import com.hoaipx.learn2021.common.utils.PageHelper;
 import com.hoaipx.learn2021.entity.TestTable;
 import com.hoaipx.learn2021.payload.request.TestTableRequest;
 import com.hoaipx.learn2021.pxh.Result;
@@ -8,6 +9,7 @@ import com.hoaipx.learn2021.common.utils.ResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,6 +29,19 @@ public class TestController {
     @ApiOperation(value = "Get all")
     public Result<Object> getAll() {
         return ResultUtil.data(testTableService.getAll());
+    }
+
+    @GetMapping(value = "/getAllByCondition")
+    @ApiOperation(value = "Multi-condition pagination to get TestTable list")
+    public Result<Page<TestTable>> getAllByCondition(TestTableRequest testTableRequest, PageHelper pageHelper) throws ExecutionException, InterruptedException {
+
+        TestTable testTable = new TestTable();
+        testTable.setId(testTableRequest.getId())
+                .setName(testTableRequest.getName())
+                .setKeyword(testTableRequest.getKeyword());
+
+        CompletableFuture<Page<TestTable>> testTablePage = testTableService.getAllByCondition(testTable, pageHelper);
+        return new ResultUtil<Page<TestTable>>().setData(testTablePage.get());
     }
 
     @PostMapping("/createData")

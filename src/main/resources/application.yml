@@ -27,3 +27,10 @@ server:
     max-swallow-size: -1
   # Graceful shutdown After closing the container, wait for 30 seconds by default to continue executing unprocessed tasks to avoid data inconsistency
   shutdown: graceful
+
+# Mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    #Log console printing
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
