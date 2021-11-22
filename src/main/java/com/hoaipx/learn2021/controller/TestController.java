@@ -151,4 +151,14 @@ public class TestController {
         return ResultUtil.data(testTable.get());
     }
 
+    @DeleteMapping("/deleteBatch")
+    @ApiOperation(value = "Delete Batch")
+    public Result<Object> deleteBatch(@RequestBody Integer[] ids) {
+        if(ids == null || ids.length == 0) {
+            return ResultUtil.error("Not data.");
+        }
+        testTableService.deleteBatch(ids);
+        return ResultUtil.success("Successfully.");
+    }
+
 }

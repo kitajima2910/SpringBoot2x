@@ -17,4 +17,16 @@
         </if>
     </select>
 
+<!--    <delete id="deleteById">-->
+<!--        UPDATE abc-->
+<!--        SET flag_del = 1-->
+<!--        WHERE id = #{id}-->
+<!--    </delete>-->
+
+    <update id="deleteById">
+        { CALL spDeleteTestTableById(#{id}) }
+    </update>
+
+
+
 </mapper>

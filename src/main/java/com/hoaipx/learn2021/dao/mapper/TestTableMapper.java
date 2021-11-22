@@ -18,4 +18,10 @@ public interface TestTableMapper extends BaseMapper<TestTable> {
     List<TestTable> getAllByCondition(@Param("testTable") TestTable testTable,
                                       @Param("pageHelper") PageHelper pageHelper);
 
+    /**
+     * Delete by id
+     * @param id id
+     */
+    void deleteById(@Param("id") int id);
+
 }

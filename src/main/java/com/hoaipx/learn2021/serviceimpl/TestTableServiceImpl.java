@@ -157,7 +157,7 @@ public class TestTableServiceImpl implements TestTableService {
     @Async("asyncExecutor")
     public void deleteBatch(Integer[] ids) {
 
-        if(ids.length < 1) {
+        if(ids == null || ids.length == 0) {
             throw new PXHException("TestTables contains no elements.");
         }
 
@@ -165,12 +165,11 @@ public class TestTableServiceImpl implements TestTableService {
             if(id == null || !testTableDAO.existsById(id)) {
                 throw new PXHException("TestTable ID not exist.");
             }
-        }
 
-        for(Integer id : ids) {
-            TestTable testTable = testTableDAO.findById(id).get();
-            testTable.setFlagDel(1);
-            testTableDAO.saveAndFlush(testTable);
+            testTableMapper.deleteById(id);
+//            TestTable testTable = testTableDAO.findById(id).get();
+//            testTable.setFlagDel(1);
+//            testTableDAO.saveAndFlush(testTable);
         }
 
     }
