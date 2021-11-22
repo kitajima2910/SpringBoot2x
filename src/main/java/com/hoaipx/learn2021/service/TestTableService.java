@@ -66,4 +66,10 @@ public interface TestTableService extends BaseService<TestTable, Integer> {
      */
     void deleteBatch(Integer[] ids); // Test Mybatis with Stored Procedure call
 
+    /**
+     * Get top 3
+     * @return List
+     */
+    CompletableFuture<List<TestTable>> getTop3();
+
 }

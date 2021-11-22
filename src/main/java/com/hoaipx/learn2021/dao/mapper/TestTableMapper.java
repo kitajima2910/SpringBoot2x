@@ -24,4 +24,10 @@ public interface TestTableMapper extends BaseMapper<TestTable> {
      */
     void deleteById(@Param("id") int id);
 
+    /**
+     * Get top 3
+     * @return List
+     */
+    List<TestTable> getTop3();
+
 }

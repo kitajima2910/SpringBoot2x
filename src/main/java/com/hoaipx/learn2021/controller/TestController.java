@@ -161,4 +161,11 @@ public class TestController {
         return ResultUtil.success("Successfully.");
     }
 
+    @GetMapping("/getTop3")
+    @ApiOperation(value = "Get Top 3")
+    public Result<Object> getTop3() throws ExecutionException, InterruptedException {
+        testTableService.getTop3();
+        return ResultUtil.data(testTableService.getTop3().get());
+    }
+
 }

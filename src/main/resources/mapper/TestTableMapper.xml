@@ -23,10 +23,12 @@
 <!--        WHERE id = #{id}-->
 <!--    </delete>-->
 
-    <update id="deleteById">
+    <delete id="deleteById">
         { CALL spDeleteTestTableById(#{id}) }
-    </update>
+    </delete>
 
-
+    <select id="getTop3" resultType="com.hoaipx.learn2021.entity.TestTable">
+        { CALL spGetTestTableTop3() }
+    </select>
 
 </mapper>

@@ -174,4 +174,10 @@ public class TestTableServiceImpl implements TestTableService {
 
     }
 
+    @Override
+    @Async("asyncExecutor")
+    public CompletableFuture<List<TestTable>> getTop3() {
+        return CompletableFuture.completedFuture(testTableMapper.getTop3());
+    }
+
 }
