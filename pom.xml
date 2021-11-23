@@ -93,7 +93,7 @@
             <artifactId>hutool-all</artifactId>
             <version>5.7.2</version>
         </dependency>
-        <!-- Mybatis plus-->
+        <!-- Mybatis plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -108,6 +108,13 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
+        </dependency>
+        <!-- Elasticsearch -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-elasticsearch -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <version>2.6.0</version>
         </dependency>
     </dependencies>
 

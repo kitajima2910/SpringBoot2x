@@ -66,7 +66,7 @@ public class MybatisUtil {
         }
         if (o instanceof String) {
             String str = (String) o;
-            return !StringUtils.isEmpty(str) && org.apache.commons.lang.StringUtils.isNumeric(str);
+            return StringUtils.hasText(str) && org.apache.commons.lang.StringUtils.isNumeric(str);
         }
         return false;
     }
