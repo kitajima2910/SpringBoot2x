@@ -11,7 +11,7 @@ server:
     enabled: true
     key-store-password: 123456
     key-store: classpath:29101995.p12
-#    key-store: src/main/resources/29101995.p12
+    # key-store: src/main/resources/29101995.p12
     key-store-type: PKCS12
   port: 8888 #default secured port (Spring will open it automatically)
   http:
