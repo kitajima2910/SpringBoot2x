@@ -34,3 +34,7 @@ mybatis-plus:
   configuration:
     #Log console printing
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# JWT
+jwt:
+  secret: phamxuanhoai

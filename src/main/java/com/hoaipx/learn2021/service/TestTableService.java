@@ -61,10 +61,11 @@ public interface TestTableService extends BaseService<TestTable, Integer> {
     CompletableFuture<Page<TestTable>> getAllByCondition(TestTable testTable, PageHelper pageHelper);
 
     /**
-     * Delete batch
+     * Delete Batch
      * @param ids ids
+     * @return Boolean
      */
-    void deleteBatch(Integer[] ids); // Test Mybatis with Stored Procedure call
+    CompletableFuture<Boolean> deleteBatch(Integer[] ids); // Test Mybatis with Stored Procedure call
 
     /**
      * Get top 3

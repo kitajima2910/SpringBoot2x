@@ -155,7 +155,7 @@ public class TestTableServiceImpl implements TestTableService {
 
     @Override
     @Async("asyncExecutor")
-    public void deleteBatch(Integer[] ids) {
+    public CompletableFuture<Boolean> deleteBatch(Integer[] ids) {
 
         if(ids == null || ids.length == 0) {
             throw new PXHException("TestTables contains no elements.");
@@ -172,6 +172,7 @@ public class TestTableServiceImpl implements TestTableService {
 //            testTableDAO.saveAndFlush(testTable);
         }
 
+        return CompletableFuture.completedFuture(true);
     }
 
     @Override

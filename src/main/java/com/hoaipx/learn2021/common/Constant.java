@@ -1,15 +1,47 @@
 package com.hoaipx.learn2021.common;
 
-public class Constant {
+public interface Constant {
 
     /**
      * Executions
      */
-    public static final String EXECUTIONS = "execution(* com.hoaipx.learn2021.*.*.*(..))";
+    String EXECUTIONS = "execution(* com.hoaipx.learn2021.*.*.*(..))";
 
     /**
      * Status normal
      */
-    public static final Integer STATUS_NORMAL = 0;
+    Integer STATUS_NORMAL = 0;
+
+    /**
+     * Matchers auth
+     */
+    String MATCHERS_AUTH = "/api/auth/**";
+
+    /**
+     * Matchers urs
+     */
+    String[] MATCHERS_URL = {
+            "/api/**"
+    };
+
+    /**
+     * Add
+     */
+    String ADD_SUCCESSFULLY = "Added successfully.";
+
+    /**
+     * Save
+     */
+    String SAVE_SUCCESSFULLY = "Save successfully.";
+
+    /**
+     * Edit
+     */
+    String EDIT_SUCCESSFULLY = "Edit successfully.";
+
+    /**
+     * Delete
+     */
+    String DEL_SUCCESSFULLY = "Delete successfully.";
 
 }

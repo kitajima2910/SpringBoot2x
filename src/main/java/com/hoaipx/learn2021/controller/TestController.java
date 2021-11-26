@@ -1,5 +1,6 @@
 package com.hoaipx.learn2021.controller;
 
+import com.hoaipx.learn2021.common.exception.PXHException;
 import com.hoaipx.learn2021.common.utils.PageHelper;
 import com.hoaipx.learn2021.entity.TestTable;
 import com.hoaipx.learn2021.payload.request.TestTableRequest;
@@ -153,11 +154,8 @@ public class TestController {
 
     @DeleteMapping("/deleteBatch")
     @ApiOperation(value = "Delete Batch")
-    public Result<Object> deleteBatch(@RequestBody Integer[] ids) {
-        if(ids == null || ids.length == 0) {
-            return ResultUtil.error("Not data.");
-        }
-        testTableService.deleteBatch(ids);
+    public Result<Object> deleteBatch(@RequestBody Integer[] ids) throws ExecutionException, InterruptedException {
+        testTableService.deleteBatch(ids).get();
         return ResultUtil.success("Successfully.");
     }
 
