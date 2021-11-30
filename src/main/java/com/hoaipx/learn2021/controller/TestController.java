@@ -1,5 +1,6 @@
 package com.hoaipx.learn2021.controller;
 
+import com.hoaipx.learn2021.common.config.GlobalConfigYML;
 import com.hoaipx.learn2021.common.exception.PXHException;
 import com.hoaipx.learn2021.common.utils.PageHelper;
 import com.hoaipx.learn2021.entity.TestTable;
