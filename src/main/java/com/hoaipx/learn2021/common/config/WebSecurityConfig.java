@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    // Ref: https://dzone.com/articles/json-web-token-how-to-secure-spring-boot-rest-api
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
