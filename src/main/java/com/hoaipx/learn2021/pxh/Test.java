@@ -1,15 +1,31 @@
 package com.hoaipx.learn2021.pxh;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Test {
 
-    public static void main(String ...args) {
+    public static void main(String ...args) throws NoSuchAlgorithmException {
         int numbers[] = { 1, 2, 5, 7, 9 };
         int n = 5;
         int x = 12;
 
-        System.out.println(checkNumberX(numbers, n, x));
-        System.out.println(checkNumberPerfect(15));
-        System.out.println(checkString("((()))()"));
+//        System.out.println(checkNumberX(numbers, n, x));
+//        System.out.println(checkNumberPerfect(15));
+//        System.out.println(checkString("((()))()"));
+
+        // Encode
+        String md5 = MD5("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMTUiLCJleHAiOjE2MzgzNzY3MDB9.xa-LUcBCVrDyjNlbecrsv4mktAWdGy6r56P_qlBo1CBV2La8m9inBo09PoF6t2VbZ8Z549l71bbbD14mlpGWxQ");
+        System.out.println("MD5 hash: " + md5);
+
+        String stored = "e20b409bfde509e21d4ba244ccfd65b0";
+    }
+
+    public static String MD5(String s) throws NoSuchAlgorithmException {
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        md5.update(s.getBytes(), 0, s.length());
+        return new BigInteger(1, md5.digest()).toString(16);
     }
 
     /**

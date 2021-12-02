@@ -2,6 +2,7 @@ package com.hoaipx.learn2021.common.config.jwt;
 
 import com.hoaipx.learn2021.common.Constant;
 import io.jsonwebtoken.Jwts;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,8 +17,12 @@ import java.util.ArrayList;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-    public AuthorizationFilter(AuthenticationManager authenticationManager) {
+    private JwtTokenProvider jwtTokenProvider;
+
+    public AuthorizationFilter(AuthenticationManager authenticationManager, ApplicationContext applicationContext) {
         super(authenticationManager);
+
+        this.jwtTokenProvider = applicationContext.getBean(JwtTokenProvider.class);
     }
 
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -31,7 +36,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
         try {
             UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(request);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        } catch(Exception ex) {
+        } finally {
             filterChain.doFilter(request, response);
         }
 
@@ -41,13 +46,11 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
         String token = request.getHeader("Authorization");
         if(token != null) {
-            String user = Jwts.parser().setSigningKey(Constant.SECRET_KEY.getBytes())
-                    .parseClaimsJws(token.replace("Bearer",""))
-                    .getBody()
-                    .getSubject();
 
-            if(user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+            String username = this.jwtTokenProvider.getUserNameFromJwtToken(token);
+
+            if(username != null) {
+                return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
             }
             return null;
         }

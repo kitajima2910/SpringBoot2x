@@ -53,7 +53,7 @@ public interface Constant {
      * Secret key
      */
     // String SECRET_KEY = UUID.randomUUID().toString();
-    String SECRET_KEY = "PHAM XUAN HOAI";
+    String SECRET_KEY = "PHAMXUANHOAI";
 
     /**
      * Times 10 days

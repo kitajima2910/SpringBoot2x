@@ -38,3 +38,6 @@ mybatis-plus:
 # My config
 config:
   urlSignIn: /api/auth/signIn
+  jwtSecret: PHAMXUANHOAI
+  jwtExpirationMs: 3600000 # 60 minutes
+  jwtRefreshExpirationMs: 86400000 # 1 days

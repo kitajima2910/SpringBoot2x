@@ -1,6 +1,7 @@
 package com.hoaipx.learn2021.controller;
 
 import com.hoaipx.learn2021.common.Constant;
+import com.hoaipx.learn2021.common.config.jwt.JwtTokenProvider;
 import com.hoaipx.learn2021.common.utils.ResultUtil;
 import com.hoaipx.learn2021.entity.User;
 import com.hoaipx.learn2021.payload.request.UserRequest;
@@ -8,12 +9,10 @@ import com.hoaipx.learn2021.pxh.Result;
 import com.hoaipx.learn2021.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutionException;
 
@@ -27,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder encoder;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/signUp")
     @ApiOperation(value = "Sign up")
@@ -54,10 +56,15 @@ public class AuthController {
 //        return ResultUtil.success(Constant.ADD_SUCCESSFULLY);
 //    }
 
-    @PostMapping("/signIn")
-    @ApiOperation(value = "Sign in")
-    public Result<Object> signIn(@RequestBody UserRequest userRequest) {
+//    @PostMapping("/signIn")
+//    @ApiOperation(value = "Sign in")
+//    public Result<Object> signIn(@RequestBody UserRequest userRequest) {
+//        return ResultUtil.success("Successfully.");
+//    }
 
-        return ResultUtil.success("Successfully.");
+    @GetMapping("/refreshToken")
+    @ApiOperation(value = "Refresh token")
+    public Result<Object> refreshToken(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String token) {
+        return ResultUtil.data(this.jwtTokenProvider.refreshToken(token));
     }
 }

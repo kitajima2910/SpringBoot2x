@@ -3,9 +3,8 @@ package com.hoaipx.learn2021.common.config.jwt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hoaipx.learn2021.common.Constant;
 import com.hoaipx.learn2021.entity.User;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.SneakyThrows;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,23 +16,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    private JwtTokenProvider jwtTokenProvider;
+
     private AuthenticationManager authenticationManager;
 
     private Map<String, Object> resultJson;
 
-    public AuthenticationFilter(AuthenticationManager authenticationManager) {
+    public AuthenticationFilter(AuthenticationManager authenticationManager, ApplicationContext applicationContext) {
         resultJson = new HashMap<>();
         resultJson.put("timestamp", System.currentTimeMillis());
         resultJson.put("path", Constant.URL_SIGN_IN);
 
         this.authenticationManager = authenticationManager;
         setFilterProcessesUrl(Constant.URL_SIGN_IN);
+
+        this.jwtTokenProvider = applicationContext.getBean(JwtTokenProvider.class);
     }
 
     @SneakyThrows
@@ -62,11 +64,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         resultJson.put("status", HttpServletResponse.SC_OK);
         resultJson.put("message", "Login Successfully");
 
-        String token = Jwts.builder()
-                .setSubject(((org.springframework.security.core.userdetails.User) authentication.getPrincipal()).getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + Constant.TIMES))
-                .signWith(SignatureAlgorithm.HS512, Constant.SECRET_KEY.getBytes())
-                .compact();
+        String token = this.jwtTokenProvider.generateJwtToken(authentication);
+
         response.addHeader("Authorization","Bearer " + token);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
