@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Stack;
 
 public class Test {
 
@@ -14,7 +15,7 @@ public class Test {
 
 //        System.out.println(checkNumberX(numbers, n, x));
 //        System.out.println(checkNumberPerfect(15));
-//        System.out.println(checkString("((()))()"));
+        System.out.println(checkString("((())))("));
 
         // Encode
 //        String md5 = MD5("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMTUiLCJleHAiOjE2MzgzNzY3MDB9.xa-LUcBCVrDyjNlbecrsv4mktAWdGy6r56P_qlBo1CBV2La8m9inBo09PoF6t2VbZ8Z549l71bbbD14mlpGWxQ");
@@ -28,13 +29,13 @@ public class Test {
 
 //        System.out.println(convertStringToFloat("32a1.1415"));
 
-        System.out.println(findNumberOfOperation(10, 15));
-        System.out.println(findNumberOfOperation(15, 10));
-
-        System.out.println(findNumberOfOperation(15, 45));
-        System.out.println(findNumberOfOperation(45, 15));
-
-        System.out.println(findNumberOfOperation(84, 63));
+//        System.out.println(findNumberOfOperation(10, 15));
+//        System.out.println(findNumberOfOperation(15, 10));
+//
+//        System.out.println(findNumberOfOperation(15, 45));
+//        System.out.println(findNumberOfOperation(45, 15));
+//
+//        System.out.println(findNumberOfOperation(84, 63));
 //        System.out.println(convert(63, 84)); // error with case +-7
     }
 
@@ -197,19 +198,18 @@ public class Test {
             return false;
         }
 
-        int count = 0;
-        for(int i = 0; i < str.length(); i++) {
-            if(str.charAt(i) == '(') {
-                count++;
+        Stack<Character> stack = new Stack<>();
+        for(char c : str.toCharArray()) {
+            if(c == '(') {
+                stack.push(c);
+            } else if(c == ')' && !stack.isEmpty() && stack.peek() == '(') {
+                stack.pop();
             } else {
-                count--;
-            }
-            if(count < 0) {
                 return false;
             }
         }
 
-        return count == 0;
+        return stack.isEmpty();
 
     }
 

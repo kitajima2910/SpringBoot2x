@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -65,6 +68,11 @@ public class AuthController {
     @GetMapping("/refreshToken")
     @ApiOperation(value = "Refresh token")
     public Result<Object> refreshToken(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String token) {
-        return ResultUtil.data(this.jwtTokenProvider.refreshToken(token));
+
+//        Cookie refreshToken = new Cookie("HOAI", UUID.randomUUID().toString());
+//        refreshToken.setMaxAge(7 * 24 * 60 * 60); // 7 days
+//        response.addCookie(refreshToken);
+
+        return ResultUtil.success("");
     }
 }
