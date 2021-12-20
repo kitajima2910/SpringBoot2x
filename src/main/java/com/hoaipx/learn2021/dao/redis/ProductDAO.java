@@ -27,6 +27,7 @@ public class ProductDAO {
     }
 
     public Object findById(int id) {
+        System.out.println("called findProductById() from DB");
         return template.opsForHash().get(HASH_KEY, id);
     }
 

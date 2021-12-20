@@ -15,7 +15,7 @@ public class Test {
 
 //        System.out.println(checkNumberX(numbers, n, x));
 //        System.out.println(checkNumberPerfect(15));
-        System.out.println(checkString("((())))("));
+//        System.out.println(checkString("((())))("));
 
         // Encode
 //        String md5 = MD5("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMTUiLCJleHAiOjE2MzgzNzY3MDB9.xa-LUcBCVrDyjNlbecrsv4mktAWdGy6r56P_qlBo1CBV2La8m9inBo09PoF6t2VbZ8Z549l71bbbD14mlpGWxQ");
@@ -27,7 +27,7 @@ public class Test {
 
 //        DrawTriangle(5);
 
-//        System.out.println(convertStringToFloat("32a1.1415"));
+        System.out.println(convertStringToFloat("321.1415"));
 
 //        System.out.println(findNumberOfOperation(10, 15));
 //        System.out.println(findNumberOfOperation(15, 10));
@@ -109,21 +109,21 @@ public class Test {
         }
     }
 
-//    static void DrawTriangle(int iTriangleHeight) {
-//        int h = iTriangleHeight;
-//        int w = h + h + 1;
-//
-//        for(int i = 1; i <= h; i++) {
-//            for(int j = 1; j <= w; j++) {
-//                if(j >= (h + 2) - i && j <= h + i) {
-//                    System.out.print("*");
-//                } else {
-//                    System.out.print("-");
-//                }
-//            }
-//            System.out.println();
-//        }
-//    }
+    static void DrawTriangle(int iTriangleHeight) {
+        int h = iTriangleHeight;
+        int w = h + h + 1;
+
+        for(int i = 1; i <= h; i++) {
+            for(int j = 1; j <= w; j++) {
+                if(j >= (h + 2) - i && j <= h + i) {
+                    System.out.print("*");
+                } else {
+                    System.out.print("-");
+                }
+            }
+            System.out.println();
+        }
+    }
 
 
     static float convertStringToFloat(String str) throws IOException {
@@ -152,7 +152,7 @@ public class Test {
             factor /= 10;
         }
 
-        for(int i=str.length()-1;i>=0;i--){
+        for(int i = str.length() - 1; i >= 0; i--){
 
             if(str.charAt(i) == '.'){
                 factor = 1;
